@@ -1,0 +1,47 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+<h1>{{title}}</h1>
+<!--        <img style ="height:250px;"src="{% static 'main/img/logo.jpg' %}" alt="">-->
+<!--        <a class="btn-btn primary" href="">Submit</a>-->
+<!--<ul>-->
+<!--        {% for i in posts %}-->
+<!--        <li>-->
+<!--                <h2>{{i.name}}</h2>-->
+<!--                <img src="{{i.photo}}">-->
+<!--                <p>{{i.content}}</p>-->
+<!--                <p>{{i.author}}</p>-->
+<!--                <small>{{i.price}}</small>-->
+<!--                <hr>-->
+<!--        </li>-->
+<!--        {% endfor %}-->
+<!--</ul>-->
+<div style="display: flex; flex-direction: row; flex-wrap: wrap">
+
+  {% for i in posts %}
+  {#  Single Card Template:#}
+  <div class="card" style="width: 18rem; margin: 10px">
+    <img src="{{ i.image }}" class="card-img-top" >
+    <div class="card-body">
+      <div style="display: flex; flex-direction: row">
+        <h5 class="card-title">{{ i.name }}</h5>
+        {#  Colored cirlce:#}
+        <div style="
+          background: {{ card.color }};
+          width: 20px;
+          height: 20px;
+          margin-left: 10px;
+          border-radius: 50%;
+        "></div>
+      </div>
+      <p class="card-text">{{ card.description }}</p>
+      <a href="/command/{{ card.id }}/color" class="btn btn-primary">Change Color</a>
+      <a href="/command/{{ card.id }}/delete" class="btn btn-primary">Delete</a>
+    </div>
+  </div>
+  {% endfor %}
+
+</div>
+
+
+{% endblock %}
