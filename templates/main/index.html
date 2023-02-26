@@ -21,24 +21,24 @@
   {% for i in posts %}
   {#  Single Card Template:#}
   <div class="card" style="width: 18rem; margin: 10px">
-    <img src="{{ i.image }}" class="card-img-top" >
+    <img style="height: 150px; wight:350px; "src="{{ i.image }}" class="card-img-top" >
     <div class="card-body">
       <div style="display: flex; flex-direction: row">
+         <hr>
         <h5 class="card-title">{{ i.name }}</h5>
-        {#  Colored cirlce:#}
-        <div style="
-          background: {{ card.color }};
-          width: 20px;
+
+        <div style="background: {{ card.color }};width: 20px;
           height: 20px;
           margin-left: 10px;
           border-radius: 50%;
         "></div>
       </div>
-      <p class="card-text">{{ card.description }}</p>
-      <a href="/command/{{ card.id }}/color" class="btn btn-primary">Change Color</a>
-      <a href="/command/{{ card.id }}/delete" class="btn btn-primary">Delete</a>
+      <p class="card-text">{{ i.content }}</p>
+<!--      <a href="/command/{{ card.id }}/color" class="btn btn-primary">Change Color</a>-->
+<!--      <a href="/command/{{ card.id }}/delete" class="btn btn-primary">Delete</a>-->
     </div>
   </div>
+
   {% endfor %}
 
 </div>
