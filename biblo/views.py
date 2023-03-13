@@ -34,7 +34,19 @@ def login(request):
     return HttpResponse('Авторизация')
 
 def show_category(request, cat_id):
-    return HttpResponse(f"Отображение категории с id = {cat_id}")
+    posts = Product.objects.filter(cat_id = cat_id)
+    cats = Category.objects.all()
+
+    context = {
+        'cats': cats,
+        'posts': posts,
+        'menu': menu,
+        'title': 'Отображение по рубрикам ',
+        'cat_selected': cat_id,
+
+    }
+    return render(request, 'main/index.html', context=context)
+
 
 
 

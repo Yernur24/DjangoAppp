@@ -43,9 +43,22 @@
     text-decoration: none;
     font-size: 20px;
     color: white;
-    margin-left: 25px;
     text-align: right;
     width: 90%;
     margin-top: 20px;
-
+    display: flex;
+}
+.catbut{
+    text-decoration: none;
+    font-size: 16px;
+    color: white;
+}
+.selected_li{
+    text-decoration: none;
+    font-size: 16px;
+    color: white;
+    margin-left: 25px;
+}
+.k5{
+    margin-top: 8px;
 }

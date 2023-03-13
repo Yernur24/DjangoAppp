@@ -1,51 +1,5 @@
-.card-img-top{
-    height: 100px;
-    weight: 200px;
-}
-.navbar {
-    background-color: white;
-    display: flex;
-    width: 100%;
-    height: 70px;
-}
-.menuButton{
+.card-title11{
     text-decoration: none;
     font-size: 20px;
     color: black;
-    margin-left: 25px;
-}
-.menu1Button{
-    text-decoration: none;
-    font-size: 20px;
-    color: white;
-    margin-left: 25px;
-}
-
-.menu{
-    width: 100%;
-    padding: 20px;
-}
-.menu1{
-    width: 90%;
-    padding: 20px;
-    text-align: right;
-}
-.body{
-    width: 100%;
-    height: 80%;
-    background-color: black;
-    color: white;
-    display: flex;
-
-}
-.menubody{
-    margin-left: 25px;
-    text-decoration: none;
-    font-size: 20px;
-    color: white;
-    margin-left: 25px;
-    text-align: right;
-    width: 90%;
-    margin-top: 20px;
-
 }
