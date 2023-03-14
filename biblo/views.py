@@ -5,10 +5,8 @@ from .models import*
 menu=["about", "Log In" ,"Categories"]
 def index(request):
     posts=Product.objects.all()
-    cats =Category.objects.all()
 
     context ={
-        'cats': cats,
         'posts': posts,
         'menu': menu,
         'title': 'Главная страница',
@@ -35,10 +33,8 @@ def login(request):
 
 def show_category(request, cat_id):
     posts = Product.objects.filter(cat_id = cat_id)
-    cats = Category.objects.all()
-
     context = {
-        'cats': cats,
+
         'posts': posts,
         'menu': menu,
         'title': 'Отображение по рубрикам ',
