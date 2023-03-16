@@ -9,6 +9,7 @@ path('addpage/', addpage, name='addpage'),
 path('contact/', contact, name='contact'),
 path('login/', login, name='login'),
 path('category/<int:cat_id>/', show_category, name='category'),
+path('post/<int:post_id>/', show_post, name='post'),
 
 # path('cat/<slug:catid>/', categories),
 ]

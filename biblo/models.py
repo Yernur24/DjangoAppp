@@ -5,11 +5,12 @@ from django.urls import reverse
 class Product(models.Model):
     product_id=models.IntegerField
     name=models.CharField(max_length=255)
+    slug=models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
     image=models.ImageField(upload_to="photos/%Y/%m/%d/")
     content=models.TextField(blank=True)
     author=models.TextField(blank=True)
     price=models.IntegerField
-    cat=models.ForeignKey('Category', on_delete=models.PROTECT, null=True)
+    cat=models.ForeignKey('Category', on_delete=models.PROTECT,verbose_name="Категории")
 
     def __str__(self):
         return self.name
