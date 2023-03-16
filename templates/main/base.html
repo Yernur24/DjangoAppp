@@ -23,7 +23,7 @@
 <!--</ul>-->
    <div class="navbar11">
         <div class="menu">
-            <a href="#" class="menuButton">About</a>
+            <a href="/about " class="menuButton">About</a>
             <a href="#" class="menuButton">News</a>
             <a href="#" class="menuButton">New</a>
 <!--            <a href="#" class="menuButton">log in</a>-->
@@ -33,7 +33,7 @@
        <h1 style="margin-top: 8px;">Bibloteka</h1>
 
         <div class="menu1">
-            <a href="#" class="menuButton">Create</a>
+            <a href="/addpage" class="menuButton">Create</a>
             <a href="#" class="menuButton">Log in</a>
         </div>
    </div>
@@ -45,11 +45,13 @@
                {% if cat_selected == 0 %}
                  <p class="selected_li">All</p>
                {% else %}
-                  <p class="selected_li"><a class ="catbut" href="{% url 'home' %}">All</p>
+                  <p class="selected_li">
+                      <a class ="catbut" href="{% url 'home' %}">All</a>
+                  </p>
                {% endif %}
 
-             {% show_categories cat_selected_cat_selected %}
-
+              {% show_categories cat_selected=cat_selected %}
+<a href="#"></a>
          </div>
 
     </div>

@@ -3,13 +3,16 @@ from django.urls import path, include
 from .views import *
 
 urlpatterns = [
+# path('', ProductHome.as_view(), name='home'),
 path('', index, name='home'),
 path('about/', about, name='about'),
 path('addpage/', addpage, name='addpage'),
+# path('addpage/', AddPage.as_view(), name='addpage'),
 path('contact/', contact, name='contact'),
 path('login/', login, name='login'),
 path('category/<int:cat_id>/', show_category, name='category'),
-path('post/<int:post_id>/', show_post, name='post'),
+# path('category/<slug:cat_slug>/', ProductCategory.as_view(), name='category'),
+path('post/<slug:post_slug>/', show_post, name='post'),
 
 # path('cat/<slug:catid>/', categories),
 ]
