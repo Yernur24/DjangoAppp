@@ -21,6 +21,7 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'Book'
         verbose_name_plural = 'Books'
+        ordering =['id']
 
 class Category(models.Model):
     name=models.CharField(max_length=255, db_index=True)

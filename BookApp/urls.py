@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from BookApp import settings
-from biblo.views import index
+
 from biblo.views import categories
 
 handler400 ='biblo.views.handler400'
