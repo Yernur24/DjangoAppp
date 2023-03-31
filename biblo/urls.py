@@ -3,11 +3,11 @@ from django.urls import path, include
 from .views import *
 
 urlpatterns = [
-# path('', ProductHome.as_view(), name='home'),
-path('', index, name='home'),
+path('', ProductHome.as_view(), name='home'),
+# path('', index, name='home'),
 path('about/', about, name='about'),
-path('addpage/', addpage, name='addpage'),
-# path('addpage/', AddPage.as_view(), name='addpage'),
+# path('addpage/', addpage, name='addpage'),
+path('addpage/', AddPage.as_view(), name='addpage'),
 path('contact/', contact, name='contact'),
 path('login/', login, name='login'),
 path('category/<int:cat_id>/', show_category, name='category'),

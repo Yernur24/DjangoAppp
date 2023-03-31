@@ -8,7 +8,11 @@
   {% for i in posts %}
   {#  Single Card Template:#}
   <div class="card" style="width: 18rem; margin: 10px">
-    <img style="height: 150px; wight:350px; "src="{{ i.image }}" class="card-img-top" >
+    {% if i.image %}
+<!--    <a href ="{% url 'i.get_absolute_url %}">-->
+     <img style="height: 150px; wight:350px; "src="{{ i.image.url }}" class="card-img-top" >
+<!--    </a>-->
+    {% endif %}
     <div class="card-body">
       <div style="display: flex; flex-direction: row">
          <hr>

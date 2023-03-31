@@ -1,37 +1,40 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 from .forms import *
 from .models import*
+from .utils import *
 
 menu=["about", "Log In" ,"Categories"]
 
-# class ProductHome(ListView):
-#     model = Product
-#     template_name ='main.index.html'
-#     context_object_name = 'posts'
-#
-#     def get_context_data(self, *, object_list=None, **kwargs):
-#         context =super().get_context_data(**kwargs)
-#         context['menu']=menu
-#         context['title']='Главная страница'
-#         context['cat_selected']='0'
-#         return context
-#
-#     def get_queryset(self):
-#       return  Product.objects.filter(is_published=True)
+class ProductHome(DataMixin ,ListView):
+    model = Product
+    template_name ='main/index.html'
+    context_object_name = 'posts'
 
-# class AddPage(CreateView):
-#     form_class = AddPostForm
-#     template_name = 'main/addpage.html'
-#     success = reverse_lazy('home')
-#
-#     def get_context_data(self,*, object_list=None, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['menu']=menu
-#         context['title']='Добавление статьи'
-#         return context
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context =super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title="Главная старница")
+        return dict(list(context.items()) + list(c_def.items()))
+
+    def get_queryset(self):
+      return  Product.objects.filter(is_published=True)
+
+
+
+class AddPage(LoginRequiredMixin , DataMixin , CreateView):
+    form_class = AddPostForm
+    template_name = 'main/addpage.html'
+    success = reverse_lazy('home')
+    login_url =  reverse_lazy('home')
+    raise_exception = True
+    def get_context_data(self,*, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title="Добавление статьи")
+        return dict(list(context.items()) + list(c_def.items()))
 def index(request):
     posts=Product.objects.all()
 
@@ -51,15 +54,6 @@ def categories(request, catid):
     print(request.GET)
     return HttpResponse(f"<h1>Категория</h1><p>{catid}</p>")
 
-def addpage(request):
-    if request.method =='POST':
-        form=AddPostForm(request.POST ,request.FILES)
-        if form.is_valid():
-                form.save()
-                return redirect('home')
-    else:
-        form=AddPostForm()
-    return render( request, 'main/addpage.html',{'form':form ,'menu': menu , 'title': 'Добавление статьи'})
 
 def contact(request):
     return HttpResponse('Обратная связь')
@@ -78,35 +72,35 @@ def show_post(request, post_slug):
     }
     return render(request, 'main/post.html', context=context)
 
-# class ShowPost(DetailView):
-#     model= Product
-#     template_name = 'main/index.html'
-#     slug_url_kwarg = 'post_slug'
-#     context_object_name = 'post'
-#     def get_context_data(self, *,object_list=None, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['menu'] = menu
-#         context['title'] = context['post']
-#
-#         return context
+class ShowPost(DataMixin ,DetailView):
+    model= Product
+    template_name = 'main/index.html'
+    slug_url_kwarg = 'post_slug'
+    context_object_name = 'post'
+    def get_context_data(self, *,object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['title'] = context['post']
+
+        return context
 
 
 
-# class ProductCategory(ListView):
-#     model= Product
-#     template_name = 'main/index.html'
-#     context_object_name = 'posts'
-#     allow_empty = False
-#
-#     def get_context_data(self, *, object_list=None, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['menu'] = menu
-#         context['title'] = 'Категория -' +str(context['posts'][0].cat)
-#         context['cat_selected'] = context['posts'][0].cat_id
-#         return context
-#
-#     def get_queryset(self):
-#         return Product.objects.filter(cat__slug=self.kwargs['car_slug'], is_published=True)
+class ProductCategory(DataMixin ,ListView):
+    model= Product
+    template_name = 'main/index.html'
+    context_object_name = 'posts'
+    allow_empty = False
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['title'] = 'Категория -' +str(context['posts'][0].cat)
+        context['cat_selected'] = context['posts'][0].cat_id
+        return context
+
+    def get_queryset(self):
+        return Product.objects.filter(cat__slug=self.kwargs['car_slug'], is_published=True)
 
 def show_category(request, cat_id):
     posts = Product.objects.filter(cat_id = cat_id)
@@ -119,11 +113,6 @@ def show_category(request, cat_id):
 
     }
     return render(request, 'main/index.html', context=context)
-
-
-
-
-
 
 
 
