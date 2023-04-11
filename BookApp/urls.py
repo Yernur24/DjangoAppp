@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
@@ -21,10 +22,6 @@ from BookApp import settings
 
 from biblo.views import categories
 
-handler400 ='biblo.views.handler400'
-handler403 ='biblo.views.handler403'
-handler404 ='biblo.views.handler404'
-handler500 ='biblo.views.handler500'
 
 
 
@@ -34,4 +31,15 @@ urlpatterns = [
 
 ]
 if settings.DEBUG:
+    import debug_toolbar
+
+    urlpatterns = [
+       path('__debug__/', include('debug_toolbar.urls')),
+    ] + urlpatterns
+
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler400 = 'biblo.views.handler400'
+handler403 = 'biblo.views.handler403'
+handler404 = 'biblo.views.handler404'
+handler500 = 'biblo.views.handler500'
