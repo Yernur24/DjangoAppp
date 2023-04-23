@@ -9,7 +9,7 @@
   {#  Single Card Template:#}
   <div class="card" style="width: 18rem; margin: 10px">
     {% if i.image %}
-         <a href="{{ p.get_absolute_url }}">
+         <a href="{{ i.get_absolute_url }}">
      <img style="height: 150px; wight:350px; "src="{{ i.image.url }}" class="card-img-top" >
          </a>
     {% endif %}
