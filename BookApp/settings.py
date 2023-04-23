@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-f$&+=mqs7h3(ktieyg5!1mosg3g320*hgf8ok88oinz9i=za6_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
-    'biblo.apps.BibloConfig'
+    'captcha',
+    'biblo.apps.BibloConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -141,4 +143,14 @@ CACHES = {
         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
         'LOCATION': os.path.join(BASE_DIR, 'biblo_cache'),
     }
+}
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ],
+
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ]
 }

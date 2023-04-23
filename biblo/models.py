@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 
 class Product(models.Model):
@@ -12,6 +13,7 @@ class Product(models.Model):
     price=models.IntegerField
     is_published =models.BooleanField(default=True, verbose_name="publicasia")
     cat=models.ForeignKey('Category', on_delete=models.PROTECT,verbose_name="Категории")
+    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

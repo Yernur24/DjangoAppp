@@ -1,13 +1,25 @@
-from django.contrib.auth import logout
+from django.contrib.auth import logout , login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.core.paginator import Paginator
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView , FormView
+from django.forms import model_to_dict
+
+from rest_framework import generics, viewsets, mixins
+from django.shortcuts import render
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.viewsets import GenericViewSet
+from .permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly
+
+from .models import Product , Category
+from .serializers import bibloSerializer
 from .forms import *
 from .models import *
 from .utils import *
@@ -51,10 +63,19 @@ class RegisterUser(DataMixin ,CreateView):
         c_def = self.get_user_context(title="Регистрация")
         return dict(list(context.items()) + list(c_def.items()))
 
+class ContactFormView(DataMixin, FormView):
+    form_class = ContactForm
+    template_name = 'main/contact.html'
+    success_url = reverse_lazy('home')
 
-class LoginUserForm:
-    pass
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title="Обратная связь")
+        return dict(list(context.items()) + list(c_def.items()))
 
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return redirect('home')
 
 class LoginUser(DataMixin, LoginView):
     form_class = LoginUserForm
@@ -86,15 +107,6 @@ def about(request):
 def categories(request, catid):
     print(request.GET)
     return HttpResponse(f"<h1>Категория</h1><p>{catid}</p>")
-
-
-def contact(request):
-    return HttpResponse('Обратная связь')
-
-
-def login(request):
-    return HttpResponse('Авторизация')
-
 
 
 
@@ -154,3 +166,21 @@ def handler404(request, exception):
 
 def handler500(request):
     return (render(request, "500.html", status=500))
+
+
+class bibloAPIList(generics.ListCreateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = bibloSerializer
+    # permission_classes = (IsOwnerOrReadOnly,)
+
+
+class bibloAPIUpdate(generics.RetrieveUpdateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = bibloSerializer
+    permission_classes = (IsOwnerOrReadOnly, )
+
+
+class bibloAPIDestroy(generics.RetrieveDestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = bibloSerializer
+    permission_classes = (IsAdminOrReadOnly, )
