@@ -10,13 +10,13 @@
   <div class="card" style="width: 18rem; margin: 10px">
     {% if i.image %}
          <a href="{{ i.get_absolute_url }}">
-     <img style="height: 150px; wight:350px; "src="{{ i.image.url }}" class="card-img-top" >
+     <img style="height: 300px; wight:160px; "src="{{ i.image.url }}" class="card-img-top" >
          </a>
     {% endif %}
     <div class="card-body">
       <div style="display: flex; flex-direction: row">
          <hr>
-        <h5 class="card-title11">{{ i.name }}</h5>
+        <h5 style="height: 25px" class="card-title11">{{ i.name }}</h5>
 
         <div style="background: {{ card.color }};width: 20px;
           height: 20px;
@@ -24,7 +24,7 @@
           border-radius: 50%;
         "></div>
       </div>
-      <p class="card-text">{{ i.content }}</p>
+<!--      <p class="card-text">{{ i.content }}</p>-->
     </div>
   </div>
 
