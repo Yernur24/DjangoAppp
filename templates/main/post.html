@@ -1,12 +1,37 @@
 {% extends 'main/base.html' %}
-{% load static %}
+
 {% block content %}
-<h1>{{post.title}}</h1>
 
-{% if post.photo %}}
-<p><img src="{{post.photo.url}}"></p>
-{% endif %}
+    <hr>
+     <div style="display: flex">
+        <div>
+           {% if post.image %}
+            <img src="{{post.image.url}}" style=" margin-left: 90px; height: 450px;width: 450px;margin-bottom: 20px;">
+            <div style="display: flex">
+                <img src="{{post.image.url}}" style=" margin-left: 75px; height: 120px;width: 150px;margin-bottom: 20px;">
+                <img src="{{post.image.url}}" style=" margin-left: 28px; height: 120px;width: 150px;margin-bottom: 20px;">
+                <img src="{{post.image.url}}" style=" margin-left: 28px; height: 120px;width: 150px;margin-bottom: 20px;">
+            </div>
+            {% endif %}
+        </div>
+        <div style="margin-left: 80px" class="container" >
+            <div class="row justify-content-center" style="width: 700px">
+                <div class="col-md-15">
+                    <div class="col-sm-15">
+                        <div class="card" >
+                            <div class="card-body"style="text-align: center">
+                                <h4  align="center">{{post.name}}</h4>
+                                <hr>
 
-{{post.content|linebreaks}}
+                                <h5 align="center">{{post.content|linebreaks}}</h5>
+
+                                <p align="center">Author:{{post.author|linebreaks}}</p>
+                                <button style="background-color: #0d0d0d; color: white;height: 40px;width: 120px" type="submit">add to cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
 {% endblock %}
-

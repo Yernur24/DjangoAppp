@@ -16,8 +16,8 @@ from BookApp import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/product/', bibloAPIList.as_view()),
-    path('api/v1/product/<int:pk>/', bibloAPIList.as_view()),
-    path('api/v1/productdelete/<int:pk>/', bibloAPIList.as_view()),
+    path('api/v1/product/<int:pk>/', bibloAPIUpdate.as_view()),
+    path('api/v1/productdelete/<int:pk>/', bibloAPIDestroy.as_view()),
     path('api/v1/drf-auth/', include('rest_framework.urls')),
     path('api/v1/auth/', include('djoser.urls')),  # new
     re_path(r'^auth/', include('djoser.urls.authtoken')),  # new

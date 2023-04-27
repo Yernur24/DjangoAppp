@@ -35,7 +35,7 @@ class ProductHome(DataMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title="Главная старница")
+        c_def = self.get_user_context(title="Главная страница")
         return dict(list(context.items()) + list(c_def.items()))
 
     def get_queryset(self):
@@ -105,15 +105,15 @@ def about(request):
     return render(request, 'main/about.html', {'menu': menu, 'title': 'about', 'page_obj': page_obj})
 
 
-def categories(request, catid):
-    print(request.GET)
-    return HttpResponse(f"<h1>Категория</h1><p>{catid}</p>")
+# def categories(request, catid):
+#     print(request.GET)
+#     return HttpResponse(f"<h1>Категория</h1><p>{catid}</p>")
 
 
 
 class ShowPost(DataMixin, DetailView):
     model = Product
-    template_name = 'main/index.html'
+    template_name = 'main/post.html'
     slug_url_kwarg = 'post_slug'
     context_object_name = 'post'
 
@@ -123,22 +123,22 @@ class ShowPost(DataMixin, DetailView):
         return dict(list(context.items()) + list(c_def.items()))
 
 
-class ProductCategory(DataMixin, ListView):
-    model = Product
-    template_name = 'main/index.html'
-    context_object_name = 'posts'
-    allow_empty = False
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['menu'] = menu
-        context['title'] = 'Категория -' + str(context['posts'][0].cat)
-        context['cat_selected'] = context['posts'][0].cat_id
-        return context
-
-    def get_queryset(self):
-        return Product.objects.filter(cat__slug=self.kwargs['car_slug'], is_published=True)
-
+# class ProductCategory(DataMixin, ListView):
+#     model = Product
+#     template_name = 'main/index.html'
+#     context_object_name = 'posts'
+#     allow_empty = False
+#
+#     def get_context_data(self, *, object_list=None, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['menu'] = menu
+#         context['title'] = 'Категория -' + str(context['posts'][0].cat)
+#         context['cat_selected'] = context['posts'][0].cat_id
+#         return context
+#
+#     def get_queryset(self):
+#         return Product.objects.filter(cat__slug=self.kwargs['car_slug'], is_published=True)
+#
 
 def show_category(request, cat_id):
     posts = Product.objects.filter(cat_id=cat_id)
