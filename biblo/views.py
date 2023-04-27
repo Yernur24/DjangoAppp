@@ -4,7 +4,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.core.paginator import Paginator
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser, IsAuthenticated
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
@@ -168,16 +169,25 @@ def handler500(request):
     return (render(request, "500.html", status=500))
 
 
+class bibloAPIListPagination(PageNumberPagination):
+    page_size = 3
+    page_size_query_param = 'page_size'
+    max_page_size = 2
+
+
 class bibloAPIList(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = bibloSerializer
-    # permission_classes = (IsOwnerOrReadOnly,)
+    permission_classes = (IsAuthenticatedOrReadOnly, )
+    pagination_class = bibloAPIListPagination
+
 
 
 class bibloAPIUpdate(generics.RetrieveUpdateAPIView):
     queryset = Product.objects.all()
     serializer_class = bibloSerializer
-    permission_classes = (IsOwnerOrReadOnly, )
+    permission_classes = (IsAuthenticated, )
+    # authentication_classes = (TokenAuthentication, )
 
 
 class bibloAPIDestroy(generics.RetrieveDestroyAPIView):

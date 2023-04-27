@@ -3,18 +3,19 @@
 {% block content %}
 <h1 style="text-decoration: none;color: black; text-align: center">{{title}}</h1>
 
-<div style="display: flex; flex-direction: row; flex-wrap: wrap">
+<div style=" margin-left: 65px;display: flex; flex-direction: row; flex-wrap: wrap">
 
   {% for i in posts %}
   {#  Single Card Template:#}
-  <div class="card" style="width: 18rem; margin: 10px">
+  <div class="card" style="width: 20rem; margin: 10px">
     {% if i.image %}
          <a href="{{ i.get_absolute_url }}">
      <img style="height: 300px; wight:160px; "src="{{ i.image.url }}" class="card-img-top" >
          </a>
     {% endif %}
-    <div class="card-body">
-      <div style="display: flex; flex-direction: row">
+
+    <div  class="card-body">
+      <div style="display: flex; flex-direction: row ;">
          <hr>
         <h5 style="height: 25px" class="card-title11">{{ i.name }}</h5>
 
