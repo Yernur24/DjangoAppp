@@ -13,7 +13,7 @@ class AddPostForm(forms.ModelForm):
 
   class Meta:
      model=Product
-     fields=['name','slug','content','image','author','is_published', 'cat']
+     fields=['name','slug','content','image','author','is_published', 'cat', 'user']
      widgets = {
          'name': forms.TextInput(attrs={'class':'form-input'}),
          'content': forms.Textarea(attrs={'cols':60, 'rows':10}),

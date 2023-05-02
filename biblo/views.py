@@ -11,14 +11,12 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView , FormView
 from django.forms import model_to_dict
-
 from rest_framework import generics, viewsets, mixins
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
 from .permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly
-
 from .models import Product , Category
 from .serializers import bibloSerializer
 from .forms import *
@@ -96,18 +94,12 @@ def logout_user(request):
     return redirect('login')
 
 def about(request):
-    contact_list = Product.oblects.all()
+    contact_list = Product.objects.all()
     paginator = Paginator(contact_list, 3)
 
-    page_number = request.Get.get('page')
+    page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-
-    return render(request, 'main/about.html', {'menu': menu, 'title': 'about', 'page_obj': page_obj})
-
-
-# def categories(request, catid):
-#     print(request.GET)
-#     return HttpResponse(f"<h1>Категория</h1><p>{catid}</p>")
+    return render(request, 'main/about.html', {'page_obj': page_obj, 'menu': menu, 'title': 'О сайте'})
 
 
 

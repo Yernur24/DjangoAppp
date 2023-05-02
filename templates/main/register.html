@@ -1,17 +1,38 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-<h1>{{title}}</h1>
 
-<form method="post">
-    {% csrf_token %}
+<div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
 
-{% for f in form %}
-<p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
-<div class="form-error">{{ f.errors }}</div>
-{% endfor %}
+            <div class="mb-md-5 mt-md-4 pb-5">
+                <form method="post">
+                    {% csrf_token %}
+              <h2 class="fw-bold mb-2 text-uppercase">Register</h2>
+                 {% for f in form %}
+              <div class="form-outline form-white mb-4">
+                <label class="form-label" for="{{ f.id_for_label }}">{{f.label}}:</label><br>{{ f }}
+              </div>
+                <div class="form-error">{{ f.errors }}</div>
+                    {% endfor %}
 
-    <button type="submit">Регистрация</button>
-</form>
+              <button class="btn btn-outline-light btn-lg px-5" type="submit">Register</button>
+               </form>
 
+            </div>
+
+            <div>
+              <p class="mb-0">have an account? <a href="/login" class="text-white-50 fw-bold">Sign Up</a>
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<div style="text-align: center"class="form-error">{{ form.non_field_errors }}</div>
 {% endblock %}
